@@ -34,12 +34,12 @@ Albums
 
 	.Select(x => new
 	{
-		Decade = (x.ReleaseYear >= 2000) ? "Modern" : (x.ReleaseYear > 1989 && x.ReleaseYear < 2000) ? "90s" : (x.ReleaseYear > 1979 && x.ReleaseYear < 1990) ? "80s" :
-		(x.ReleaseYear > 1969 && x.ReleaseYear < 1980) ? "70s" : (x.ReleaseYear > 1969 && x.ReleaseYear < 1970) ? "60s" : "Oldies",
+		Decade =  (x.ReleaseYear < 1970) ? "Oldies" : (x.ReleaseYear > 1969 && x.ReleaseYear < 1980) ? "70s" : (x.ReleaseYear > 1979 && x.ReleaseYear < 1990) ? "80s" 
+		: (x.ReleaseYear > 1989 && x.ReleaseYear < 2000) ? "90s" : "Modern",
 		Title = x.Title,
 		Artist = x.Artist.Name,
 		Year = x.ReleaseYear
 
 	})
 
-	.OrderBy(x => x.Decade)
+	.OrderBy(x => x.Year)
