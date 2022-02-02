@@ -1,0 +1,20 @@
+﻿@page
+@model WebApp.Pages.SamplePages.BasicsModel
+@{
+    // the cshtml contains both c# code and html code
+    //the @ symbol takes processing from html environment and moves it to a c# environment
+    //processing any html code moves the processing into the html environment
+
+    ViewData["Title"] = "Review page basics";
+}
+<h1> Basics of Razor Page (review)</h1>
+
+@if(string.IsNullOrWhiteSpace(Model.MyName))
+{
+    <p>The random number is odd.</p>
+}
+else
+{
+    <p>@Model.MyName</p>
+}<!--EOF-->
+
