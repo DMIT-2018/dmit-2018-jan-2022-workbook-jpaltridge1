@@ -35,11 +35,60 @@ namespace WebApp.Pages.SamplePages
         [BindProperty]
         public string? MessageBody { get; set; }
 
+        [BindProperty]
+        public int? MyRide { get; set; }
+        //pretend that the following Collection is data from a database
+        //the collection is based on a 2 property class called SelectionList
+        //the data for the list will be created in a separate method
+
+        public List<SelectionList>? Rides { get; set; }
+        
+        [BindProperty]
+        public string? VacationSpot { get; set; }
+        public List<string>? VacationSpots { get; set; }
+        [BindProperty]
+        public int ReviewRating { get; set; }
+
 
 
         public void OnGet()
         {
+            PopulateList();
+
+
+
         }
+
+        public void PopulateList()
+        {
+            //create a pretend Collection from the database representing different types of transportation (rides)
+
+            Rides = new List<SelectionList>();
+            Rides.Add(new SelectionList() { ValueId = 1, DisplayText = "Car" }); 
+            Rides.Add(new SelectionList() { ValueId = 2, DisplayText = "Bus" });
+            Rides.Add(new SelectionList() { ValueId = 3, DisplayText = "Bike" });
+            Rides.Add(new SelectionList() { ValueId = 4, DisplayText = "Motorcycle" });
+            Rides.Add(new SelectionList() { ValueId = 5, DisplayText = "Board" });
+
+            Rides.Sort((x,y) => x.DisplayText.CompareTo(y.DisplayText));
+
+            VacationSpots = new List<string>();
+            VacationSpots.Add("California");
+            VacationSpots.Add("Caribbean");
+            VacationSpots.Add("Crusing");
+            VacationSpots.Add("Europe");
+            VacationSpots.Add("Flordia");
+            VacationSpots.Add("Mexico");
+
+        }
+
+        public IActionResult OnPostListSlider()
+        {
+            Feedback = $"Ride {MyRide}; Vacation {VacationSpot}; Review Rating {ReviewRating};";
+            PopulateList();
+            return Page();
+        }
+
 
         public IActionResult OnPostTextBox()
         {
@@ -53,6 +102,13 @@ namespace WebApp.Pages.SamplePages
             Feedback = $"Meal {Meal}; Acceptance {AcceptanceBox}; Message {MessageBody}";
             return Page();
         }
+
+    }
+
+    public class SelectionList
+    {
+        public int ValueId { get; set; }
+        public string? DisplayText { get; set; }
 
     }
 }
