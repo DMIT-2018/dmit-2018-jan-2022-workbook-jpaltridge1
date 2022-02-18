@@ -15,7 +15,7 @@ using ChinookSystem.ViewModels;
 
 namespace ChinookSystem.BLL
 {
-    internal class AlbumServices
+    public class AlbumServices
     {
         #region Constructor and Context Dependency
 
