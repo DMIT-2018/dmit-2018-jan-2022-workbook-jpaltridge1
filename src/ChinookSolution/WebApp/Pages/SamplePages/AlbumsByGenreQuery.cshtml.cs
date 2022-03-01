@@ -46,8 +46,8 @@ namespace WebApp.Pages.SamplePages
         [BindProperty]
         public List<SelectionList> GenreList { get; set; }
 
-        [BindProperty]
-        public int GenreId { get; set; }
+        [BindProperty (SupportsGet = true)]
+        public int? GenreId { get; set; }
 
         [BindProperty]
         public List<AlbumsListBy> AlbumsByGenre { get; set; }
@@ -60,7 +60,10 @@ namespace WebApp.Pages.SamplePages
 
             GenreList.Sort((x,y) => x.DisplayText.CompareTo(y.DisplayText));
 
-            AlbumsByGenre = _albumServices.AlbumsByGenre((int)GenreId);
+            if (GenreId.HasValue && GenreId.Value > 0)
+            {
+                AlbumsByGenre = _albumServices.AlbumsByGenre((int)GenreId);
+            }           
 
         }
 
@@ -76,7 +79,7 @@ namespace WebApp.Pages.SamplePages
                 FeedBack = $" You selected a genre id of {GenreId}";
             }
 
-            return RedirectToPage(); //causes a Get request which forces OnGet request
+            return RedirectToPage(new {GenreId = GenreId}); //causes a Get request which forces OnGet request
         }
 
     }

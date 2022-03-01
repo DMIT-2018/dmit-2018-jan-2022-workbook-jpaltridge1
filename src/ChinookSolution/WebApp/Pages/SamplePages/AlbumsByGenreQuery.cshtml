@@ -1,4 +1,4 @@
-﻿@page 
+﻿@page "{GenreId?}"
 @model WebApp.Pages.SamplePages.AlbumsByGenreQueryModel
 @{
     ViewData["Title"] = "Albums by Genre";
@@ -66,7 +66,46 @@
 </form>
 </div>
  <div class="onehalf">
+     @if (Model.AlbumsByGenre != null)
+     {
+        if (Model.AlbumsByGenre.Count() == 0)
+        {
+                <p style"color:blue; font-weight:bold;">This album has no tracks on file.</p>
+            }
+            else
+            {
+                <table border="1">
+                    
+                    <thead>
 
+                        <tr>
+                            <th>Title</th>
+                            <th>Year</th>
+                            <th>Label</th>
+                            <th>Artist</th>
+                        </tr>
+
+                    </thead>
+                        
+                    <tbody>
+                        @foreach(var item in Model.AlbumsByGenre)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.ReleaseYear</td>
+                                <td>@item.ReleaseLabel</td>
+                                <td>@item.ArtistName</td>
+                            </tr>
+                        }
+                    </tbody>
+                    
+                    <tfoot>
+
+                    </tfoot>
+
+                </table>
+            }
+        }
 
  </div>
 </section>
