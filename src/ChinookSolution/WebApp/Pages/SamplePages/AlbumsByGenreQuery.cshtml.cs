@@ -49,12 +49,19 @@ namespace WebApp.Pages.SamplePages
         [BindProperty]
         public int GenreId { get; set; }
 
+        [BindProperty]
+        public List<AlbumsListBy> AlbumsByGenre { get; set; }
+
+
         public void OnGet()
         {
             GenreList = _genreServices.GetAllGenres();
             // sort the List<T> using method .Sort
 
             GenreList.Sort((x,y) => x.DisplayText.CompareTo(y.DisplayText));
+
+            AlbumsByGenre = _albumServices.AlbumsByGenre((int)GenreId);
+
         }
 
         public IActionResult OnPost()

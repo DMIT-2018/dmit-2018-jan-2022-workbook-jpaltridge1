@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @model WebApp.Pages.SamplePages.AlbumsByGenreQueryModel
 @{
     ViewData["Title"] = "Albums by Genre";
@@ -6,6 +6,15 @@
 }
 
 <h1>Albums by Genre</h1>
+
+@section CustomCSS {
+    <partial name = "_MyCustomCSS" />
+}
+
+<section class="setflex">
+
+    <div class="onehalf">
+
 <blockquote>
     This page is to demonstrate:
     <ul>
@@ -13,6 +22,7 @@
         <li>use of input/datalist tags</li>
         <li>table creation</li>
         <li>paging</li>
+        <li>customizing</li>
     </ul>
 </blockquote>
 
@@ -34,13 +44,29 @@
         Select Genre to view albums
         <select asp-for="GenreId">
             <option value="0">Select genre</option>
+
             @foreach(var item in Model.GenreList)
             {
-                <option value="@item.ValueId">@item.DisplayText</option>
+                if (Model.GenreId == item.ValueId)
+                        {
+                            <option value="@item.ValueId" selected>@item.DisplayText</option>
+                        }
+
+                        else
+                        {
+                            <option value="@item.ValueId">@item.DisplayText</option>
+                        }
             }
         </select>
     </label>
 
+    <br />
     <button type="submit">Find Albums</button>
 
 </form>
+</div>
+ <div class="onehalf">
+
+
+ </div>
+</section>
