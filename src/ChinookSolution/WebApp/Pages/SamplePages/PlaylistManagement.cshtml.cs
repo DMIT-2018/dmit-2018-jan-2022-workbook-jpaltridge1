@@ -68,7 +68,7 @@ namespace WebApp.Pages.SamplePages
 
         //command data model for the playlist track table
         [BindProperty]
-        public List<PlaylistTrackMove> cplaylistInfo { get; set; }
+        public List<PlaylistTrackMove> cplaylistInfo { get; set; } = new();
 
         [BindProperty]
         public int addtrackid { get; set; }
