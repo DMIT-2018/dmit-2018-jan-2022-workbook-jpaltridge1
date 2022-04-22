@@ -57,6 +57,8 @@ namespace WebApp.Pages.SamplePages
         public int? currentpage { get; set; }
         #endregion
 
+        #region page variables
+
         [BindProperty(SupportsGet = true)]
         public string searchBy { get; set; }
 
@@ -78,21 +80,36 @@ namespace WebApp.Pages.SamplePages
         [BindProperty]
         public int addtrackid { get; set; }
 
-        #region Security
+        #endregion
 
+        #region Security
+        
+        public const string USERNAME = "HansenB";
         public ApplicationUser AppUser { get; set; }
         public string EmployeeName { get; set; }
 
-        public const string USERNAME = "HansenB";
+        //optionally you can use this variable in routing
+
+        [BindProperty(SupportsGet = true)]
+        public int? employeeid { get; set; }
+
 
         #endregion
 
         public async Task OnGet()
         {
             AppUser = await _UserManager.FindByNameAsync(User.Identity.Name);
+            employeeid = AppUser.EmployeeId.Value;
             EmployeeName = _Security.GetEmployeeName(AppUser.EmployeeId.Value);
             GetTrackInfo();
             GetPlaylist();
+        }
+
+        public async Task GetActiveEmployee()
+        {
+            AppUser = await _UserManager.FindByNameAsync(User.Identity.Name);
+            employeeid = AppUser.EmployeeId.Value;
+            EmployeeName = _Security.GetEmployeeName(AppUser.EmployeeId.Value);
         }
 
         public void GetTrackInfo()
@@ -182,6 +199,9 @@ namespace WebApp.Pages.SamplePages
 
         public IActionResult OnPostAddTrack()
         {
+            _ = GetActiveEmployee();
+            Thread.Sleep(1000);
+
             try
             {
                 if (string.IsNullOrWhiteSpace(playlistname))
